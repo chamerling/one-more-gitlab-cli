@@ -35,10 +35,10 @@ module.exports = {
     }
 
     function getIssue(config) {
-      spinner.text = `Getting issue #${id} for ${name} project`;
+      spinner.text = `Getting issue #${id} for ${config.name} project`;
       const client = new Client(config);
       
-      return client.getIssueForProject({id, name});
+      return client.getIssueForProject({id, name: config.name});
     }
 
     function printIssue(issue) {

@@ -39,10 +39,10 @@ module.exports = {
     }
 
     function createIssue(config) {
-      spinner.text = `Creating issue in ${name} project`;
+      spinner.text = `Creating issue in ${config.name} project`;
       const client = new Client(config);
       
-      return client.createIssueInProject(name, {title, description});
+      return client.createIssueInProject(config.name, {title, description});
     }
 
     function printIssue(issue) {

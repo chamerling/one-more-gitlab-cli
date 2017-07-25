@@ -42,6 +42,9 @@ for more information, go to https://chamerling.github.io/one-more-gitlab-cli
 ```
 
 ## Commands
+
+Note: In all the commands below, you can specify the GitLab project to launch the command against using `--name`. If not specified, the cli will look at the current project from git origin and will use it has project name.
+
 ### Issues
 #### Create
 

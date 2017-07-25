@@ -1,6 +1,8 @@
 const Client = require('./client');
 const constants = require('./constants');
 const conf = require('./config');
+const gitOrigin = require('git-remote-origin-url');
+const gitUrlParse = require('git-url-parse');
 
 module.exports = {
   constants,
@@ -20,7 +22,16 @@ function getGitlabConfig() {
 }
 
 function getCurrentProject() {
-  return Promise.reject(new Error('Can not find local project (well, not implemented for now...), specify project with --name option'));
+  return gitOrigin()
+    .then(origin => {
+      const parsed = gitUrlParse(origin);
+
+      if (!parsed || !parsed.name) {
+        throw new Error('Can not find local project from git origin, specify project with --name option');
+      }
+
+      return parsed.name;
+  });
 }
 
 function getProjectConfiguration(name) {

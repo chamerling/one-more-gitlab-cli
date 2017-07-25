@@ -30,10 +30,10 @@ module.exports = {
     }
 
     function searchIssues(config) {
-      spinner.text = `Searching issues for ${name} project`;
+      spinner.text = `Searching issues for ${config.name} project`;
       const client = new Client(config);
       
-      return client.getIssuesForProject({name, search});
+      return client.getIssuesForProject({name: config.name, search});
     }
 
     function printIssues(issues = []) {

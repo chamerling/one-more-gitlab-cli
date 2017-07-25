@@ -35,10 +35,10 @@ module.exports = {
     }
 
     function searchMergeRequests(config) {
-      spinner.text = `Searching merge requests for ${name} project`;
+      spinner.text = `Searching merge requests for ${config.name} project`;
       const client = new Client(config);
       
-      return client.getMergeRequestsForProject({name, state});
+      return client.getMergeRequestsForProject({name: config.name, state});
     }
 
     function printMergeRequests(mrs = []) {
