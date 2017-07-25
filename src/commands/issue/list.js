@@ -43,7 +43,7 @@ module.exports = {
 
       spinner.succeed(`Displaying ${issues.length} issues`);
 
-      const table = new Table({head: ['#', 'Summary', 'By']});
+      const table = new Table({head: ['#', 'Title', 'By']});
 
       issues.forEach(issue => {
         table.push([`#${issue.iid}`, issue.title, `@${issue.author.username}`])
