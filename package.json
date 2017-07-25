@@ -1,6 +1,6 @@
 {
   "name": "one-more-gitlab-cli",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "One more Gitlab CLI",
   "main": "src/index.js",
   "scripts": {
