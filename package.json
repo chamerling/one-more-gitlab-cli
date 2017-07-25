@@ -29,6 +29,10 @@
     "ora": "^1.3.0",
     "yargs": "^8.0.2"
   },
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-release": "^0.14.0"
+  },
   "bin": {
     "gitlab": "bin/gitlab"
   }

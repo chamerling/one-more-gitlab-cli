@@ -60,6 +60,13 @@ git config gitlab.url   "http://your-server-url"
 git config gitlab.token "your-token"
 ```
 
+
+## Release
+
+```
+grunt release
+```
+
 ## License
 
 MIT
