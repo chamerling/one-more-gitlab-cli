@@ -36,6 +36,30 @@ Examples:
 for more information, go to https://chamerling.github.io/one-more-gitlab-cli
 ```
 
+## Commands
+### Issues
+#### Create
+
+- Create an issue in the `my-project` project
+
+```
+gitlab issue create --name my-project --title 'This is my issue title' --d 'This is the issue description'
+```
+
+#### List
+
+- List last issues in the `my-project` project
+
+```
+gitlab issue list --name linagora.esn.calendar
+```
+
+- Search issues in the `my-project` project related to `spinner`
+
+```
+gitlab issue list --name linagora.esn.calendar --search spinner
+```
+
 ![Issues list](https://media.giphy.com/media/ygtpaB19qgoVi/giphy.gif)
 
 ## Configure

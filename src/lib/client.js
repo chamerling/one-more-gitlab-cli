@@ -27,12 +27,22 @@ class Client {
   }
 
   createIssue(issue) {
-    return Promise.resolve({id: 1, url: 'http://todo'});
+    return this.client.issues.create(issue);
   }
 
-  createIssueInProject(name, issue) {
+  createIssueInProject(name, options) {
+    const issue = {
+      title: options.title
+    };
+
+    if (options.description) {
+      issue.description = options.description;
+    }
+
     return this.getProject(name).then(project => {
-      return this.createIssue({id: project.id, issue});
+      issue.id = project.id;
+
+      return this.createIssue(issue);
     });
   }
 }

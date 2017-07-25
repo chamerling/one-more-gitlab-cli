@@ -9,7 +9,8 @@ module.exports = {
     title: {
       alias: 't',
       describe: 'Title of the issue',
-      type: 'string'
+      type: 'string',
+      demandOption: true
     },
     description: {
       alias: 'd',
@@ -45,7 +46,7 @@ module.exports = {
     }
 
     function printIssue(issue) {
-      spinner.succeed(`The issue #${issue.id} is available at ${issue.url}`);
+      spinner.succeed(`The issue #${issue.id} is available at ${issue.web_url}`);
     }
   }
 };
