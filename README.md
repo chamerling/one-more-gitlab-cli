@@ -2,6 +2,8 @@
 
 One more [GitLab](https://about.gitlab.com/) CLI, because other ones do not fit my needs...
 
+![Issues list](https://media.giphy.com/media/ygtpaB19qgoVi/giphy.gif)
+
 ## Use
 
 ### Install
@@ -14,7 +16,7 @@ yarn add global one-more-gitlab-cli
 
 ### Use
 
-For now, it just focues on issues, more resource support to come...
+For now, it just focuses on issues and merge requests, more resources support to come...
 
 ```
 gitlab --help
@@ -25,6 +27,7 @@ Usage: gitlab <command> [options]
 
 Commands:
   issue  Issues Management
+  mr     Merge Requests Management
 
 Options:
   --help     Show help                                                 [boolean]
@@ -68,7 +71,16 @@ gitlab issue list --name linagora.esn.calendar
 gitlab issue list --name linagora.esn.calendar --search spinner
 ```
 
-![Issues list](https://media.giphy.com/media/ygtpaB19qgoVi/giphy.gif)
+### Merge Requests
+#### List
+
+List last merge requests in the `my-project` project
+
+```
+gitlab mr list --name linagora.esn.calendar --state opened
+```
+
+- `state` can be `opened`, `closed`, `merged` and `all`. Defaults to `opened`.
 
 ## Configure
 

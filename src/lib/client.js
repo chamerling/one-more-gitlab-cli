@@ -34,6 +34,14 @@ class Client {
     return this.getProject(name).then(project => this.getIssue({id: project.id, iids: [id]}));
   }
 
+  getMergeRequests(query) {
+    return this.client.mergeRequests.list(query);
+  }
+
+  getMergeRequestsForProject({name, state}) {
+    return this.getProject(name).then(project => this.getMergeRequests({id: project.id, state}));
+  }
+
   createIssue(issue) {
     return this.client.issues.create(issue);
   }
