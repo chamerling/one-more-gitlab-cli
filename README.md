@@ -4,6 +4,8 @@ One more [GitLab](https://about.gitlab.com/) CLI, because other ones do not fit 
 
 ![Issues list](https://media.giphy.com/media/ygtpaB19qgoVi/giphy.gif)
 
+⚠️ Currently works on API v3, v4 supposed to be easy to do soon [https://docs.gitlab.com/ee/api/v3_to_v4.html#api-v3-to-api-v4](https://docs.gitlab.com/ee/api/v3_to_v4.html#api-v3-to-api-v4).
+
 ## Use
 
 ### Install
