@@ -12,7 +12,7 @@ function getGitlabConfig() {
   return conf.getGitConfig().then(config => {
     if (!config.gitlab || !config.gitlab.url || !config.gitlab.token) {
       console.log('Not configured, please add gitlab.url and gitlab.token to your git configuration');
-      console.log('Check https://chamerling.github.io/one-more-gitlab-cli for more details');
+      console.log('Check https://github.com/chamerling/one-more-gitlab-cli/blob/master/README.md#configure for more details');
       throw new Error('Not configured');
     }
     return {url: config.gitlab.url, token: config.gitlab.token};
