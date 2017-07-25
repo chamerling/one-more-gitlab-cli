@@ -20,10 +20,18 @@ class Client {
     return this.client.issues.list(query);
   }
 
+  getIssue(query) {
+    return this.client.issues.list(query).then(issues => issues[0]);
+  }
+
   getIssuesForProject({name, search = ''}) {
     return this.getProject(name).then(project => {
       return this.getIssues({id: project.id, search});
     });
+  }
+
+  getIssueForProject({name, id}) {
+    return this.getProject(name).then(project => this.getIssue({id: project.id, iids: [id]}));
   }
 
   createIssue(issue) {

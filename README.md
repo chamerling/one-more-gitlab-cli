@@ -46,6 +46,14 @@ for more information, go to https://chamerling.github.io/one-more-gitlab-cli
 gitlab issue create --name my-project --title 'This is my issue title' --d 'This is the issue description'
 ```
 
+#### Get a single issue
+
+Get the issue `#735` of the `my-project` project.
+
+```
+gitlab issue get --name my-project --id 735
+```
+
 #### List
 
 - List last issues in the `my-project` project
