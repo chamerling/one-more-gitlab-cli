@@ -1,5 +1,5 @@
 const Table = require('cli-table');
-const {Client, getProjectConfiguration, constants} = require('../../lib');
+const {Client, getProjectConfiguration, constants, format} = require('../../lib');
 const ora = require('ora');
 
 module.exports = {
@@ -43,11 +43,9 @@ module.exports = {
 
       spinner.succeed(`Displaying ${issues.length} issues`);
 
-      const table = new Table({head: ['#', 'Title', 'By']});
+      const table = new Table({head: ['Summary', 'State', 'Assigned to']});
 
-      issues.forEach(issue => {
-        table.push([`#${issue.iid}`, issue.title, `@${issue.author.username}`])
-      });
+      issues.forEach(issue => table.push([format.issueAsText(issue, 80), format.getState(issue.state), issue.assignee ? `@${issue.assignee.username}` : '']));
       console.log(table.toString());
     }
   }

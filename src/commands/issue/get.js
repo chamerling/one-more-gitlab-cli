@@ -1,6 +1,7 @@
 const Table = require('cli-table');
-const {Client, getProjectConfiguration, constants} = require('../../lib');
+const {Client, getProjectConfiguration, constants, format} = require('../../lib');
 const ora = require('ora');
+const chalk = require('chalk');
 
 module.exports = {
   command: 'get',
@@ -47,12 +48,11 @@ module.exports = {
       }
 
       spinner.stop();
-      console.log(`#${issue.iid} (${issue.state}) - ${issue.title}`);
-      console.log();
-      console.log(issue.description);
-      console.log();
-      console.log(issue.assignee ? `Assigned to @${issue.assignee.username}` : 'Not assigned');
-      console.log(`Created by @${issue.author.username} on ${issue.created_at}, updated on ${issue.updated_at}`);
+
+      const text = format.issueAsText(issue);
+      const meta = [format.getState(issue.state), '•', issue.assignee ? `Assigned to @${issue.assignee.username}` : 'Not assigned'].join(' ');
+
+      console.log([text, meta].join('\n'));
     }
   }
 };

@@ -1,10 +1,12 @@
 const Client = require('./client');
 const constants = require('./constants');
 const conf = require('./config');
+const format = require('./format');
 const gitOrigin = require('git-remote-origin-url');
 const gitUrlParse = require('git-url-parse');
 
 module.exports = {
+  format,
   constants,
   getProjectConfiguration,
   Client
