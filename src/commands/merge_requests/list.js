@@ -1,5 +1,5 @@
 const Table = require('cli-table2');
-const {Client, getProjectConfiguration, constants} = require('../../lib');
+const {Client, getProjectConfiguration, constants, format} = require('../../lib');
 const ora = require('ora');
 
 module.exports = {
@@ -41,6 +41,10 @@ module.exports = {
       return client.getMergeRequestsForProject({name: config.name, state});
     }
 
+    function centerText(text) {
+      return { hAlign: 'center', vAlign: 'center', content: text };
+    }
+
     function printMergeRequests(mrs = []) {
       if (!mrs.length) {
         return spinner.succeed('No merge requests');
@@ -48,11 +52,9 @@ module.exports = {
 
       spinner.succeed(`Displaying ${mrs.length} merge requests`);
 
-      const table = new Table({head: ['#', 'Title', 'By', 'State']});
+      const table = new Table({head: ['Summary', 'State', 'Created by']});
 
-      mrs.forEach(mr => {
-        table.push([`#${mr.iid}`, mr.title, `@${mr.author.username}`, mr.state])
-      });
+      mrs.forEach(mr => table.push([format.mrAsText(mr, 80), centerText(format.getState(mr.state)), centerText(mr.author.username ? `@${mr.author.username}` : '')]));
       console.log(table.toString());
     }
   }
