@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const commandsPath = path.resolve(path.join(__dirname, 'commands'));
 const yargs = require('yargs');
+require('./update-notifier')();
 
 fs.readdir(commandsPath, (err, files) => {
   files.forEach(function(filename) {
