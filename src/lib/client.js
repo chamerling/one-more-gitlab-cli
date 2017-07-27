@@ -1,13 +1,23 @@
-const gitlab = require('node-gitlab');
+const axios = require('axios');
+const querystring = require('querystring');
 
 class Client {
   constructor(config) {
     this.config = config;
-    this.client = gitlab.createPromise({api: config.api, privateToken: config.privateToken});
+    this.axios = axios.create({
+      baseURL: config.api,
+      headers: {
+        'PRIVATE-TOKEN': config.privateToken
+      }
+    });
+  }
+
+  searchProject(name) {
+    return this.axios.get('/projects', {params: {search: name}}).then(result => result.data);
   }
 
   getProject(name) {
-    return this.client.projects.list({search: name}).then(projects => {
+    return this.searchProject(name).then(projects => {
       const project = (projects || []).filter(p => !p.forked_from_project)[0];
         if (!project) {
           throw new Error(`No such gitlab project ${name}`);
@@ -17,11 +27,11 @@ class Client {
   }
 
   getIssues(query) {
-    return this.client.issues.list(query);
+    return this.axios.get(`/projects/${query.id}/issues`, {params: {search: query.search}}).then(result => result.data);
   }
 
   getIssue(query) {
-    return this.client.issues.list(query).then(issues => issues[0]);
+    return this.axios.get(`/projects/${query.id}/issues`, {params: {iids: query.iids}}).then(result => result.data[0]);
   }
 
   getIssuesForProject({name, search = ''}) {
@@ -35,7 +45,7 @@ class Client {
   }
 
   getMergeRequests(query) {
-    return this.client.mergeRequests.list(query);
+    return this.axios.get(`/projects/${query.id}/merge_requests`, { params: { state: query.state }}).then(result => result.data);
   }
 
   getMergeRequestsForProject({name, state}) {
@@ -43,7 +53,7 @@ class Client {
   }
 
   createIssue(issue) {
-    return this.client.issues.create(issue);
+    return this.axios.post(`/projects/${issue.id}/issues`, querystring.stringify({title: issue.title, description: issue.description})).then(result => result.data);
   }
 
   createIssueInProject(name, options) {
