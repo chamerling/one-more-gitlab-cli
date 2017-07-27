@@ -1,6 +1,7 @@
 const chalk = require('chalk');
 const truncate = require('truncate');
 const moment = require('moment');
+const emoji = require('node-emoji');
 
 module.exports = {
   getState,
@@ -20,7 +21,7 @@ function mrAsText(mr, truncateLength) {
   return [
     chalk.bold(`#${mr.iid} • ${mr.title}`),
     chalk.gray(truncateLength ? truncate(mr.description, truncateLength, { ellipsis: '...' }) : mr.description),
-    (`Created ${moment(mr.created_at).fromNow()} by @${mr.author.username}, updated ${moment(mr.updated_at).fromNow()}`),
+    (`Created ${moment(mr.created_at).fromNow()} by @${mr.author.username}, updated ${moment(mr.updated_at).fromNow()} • ${mr.user_notes_count || 0} ${emoji.get('speech_balloon')}  ${mr.upvotes || 0} ${emoji.get('thumbsup')}`),
   ].join('\n');
 }
 
