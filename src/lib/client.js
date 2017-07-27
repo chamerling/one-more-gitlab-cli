@@ -1,5 +1,6 @@
 const axios = require('axios');
 const querystring = require('querystring');
+const url = require('url')
 
 class Client {
   constructor(config) {
@@ -63,6 +64,13 @@ class Client {
 
   createIssue(issue) {
     return this.axios.post(`/projects/${issue.id}/issues`, querystring.stringify({title: issue.title, description: issue.description})).then(result => result.data);
+  }
+
+  getProjectFromGitUrl(gitUrl) {
+    const parsed = url.parse(gitUrl);
+    const projectName = parsed.path.substring(1, parsed.path.length - 4);
+
+    return this.axios.get(`/projects/${encodeURIComponent(projectName)}`).then(result => result.data);
   }
 
   createIssueInProject(name, options) {
