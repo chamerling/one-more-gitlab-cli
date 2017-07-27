@@ -87,6 +87,14 @@ gitlab mr list --name linagora.esn.calendar --state opened
 
 - `state` can be `opened`, `closed`, `merged` and `all`. Defaults to `opened`.
 
+#### Get a single MR
+
+Get the merge request `#735` of the `my-project` project.
+
+```
+gitlab mr get --name my-project --id 735
+```
+
 ## Configure
 
 You can configure the CLI globally or locally per project. To authenticate the user, it uses a gitlab token you can find on your gitlab profile account (https://your-server-url/profile/account). Just copy/paste the `Private Token`.
