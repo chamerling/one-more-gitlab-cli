@@ -44,6 +44,15 @@ class Client {
     return this.getProject(name).then(project => this.getIssue({id: project.id, iids: [id]}));
   }
 
+  getMergeRequest(query) {
+    // WARN: In v3 tests, the iids params does not work but iid does, this is why params are duplicated here. Will have to check on v4.
+    return this.axios.get(`/projects/${query.id}/merge_requests`, {params: {iid: query.iids, iids: query.iids}}).then(result => result.data[0]);
+  }
+
+  getMergeRequestForProject({name, id}) {
+    return this.getProject(name).then(project => this.getMergeRequest({id: project.id, iids: [id]}));
+  }
+
   getMergeRequests(query) {
     return this.axios.get(`/projects/${query.id}/merge_requests`, { params: { state: query.state }}).then(result => result.data);
   }
