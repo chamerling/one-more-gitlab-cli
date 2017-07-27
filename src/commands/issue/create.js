@@ -16,15 +16,22 @@ module.exports = {
       alias: 'd',
       describe: 'Description of the issue',
       type: 'string'
+    },
+    open: {
+      alias: 'o',
+      describe: 'Open the issue on the browser once created',
+      type: 'boolean',
+      default: false
     }
   },
   handler: argv => {
-    const { name, title, description } = argv;
+    const { name, title, description, open } = argv;
     const spinner = ora(`Creating issue ${title}`).start();
 
     getConfig(name)
       .then(createIssue)
       .then(printIssue)
+      .then(issue => open ? opn(issue.web_url, { wait: false }) : '')
       .catch(err => spinner.fail(`Failed to create issue: ${err.message}`));
 
      function getConfig(name) {

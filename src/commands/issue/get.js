@@ -1,7 +1,7 @@
-const Table = require('cli-table');
 const {Client, getProjectConfiguration, constants, format} = require('../../lib');
 const ora = require('ora');
 const chalk = require('chalk');
+const opn = require('opn');
 
 module.exports = {
   command: 'get',
@@ -13,15 +13,22 @@ module.exports = {
       type: 'number',
       demandOption: true
     },
+    open: {
+      alias: 'o',
+      describe: 'Open the issue on the browser',
+      type: 'boolean',
+      default: false
+    },
     name: constants.options.name
   },
   handler: argv => {
-    const {id, name} = argv;
+    const {id, name, open} = argv;
     const spinner = ora(`Looking at issue...`).start();
 
     getConfig(name)
       .then(getIssue)
       .then(printIssue)
+      .then(issue => open ? opn(issue.web_url, { wait: false }) : '')
       .catch(err => spinner.fail(`Failed to get issue: ${err.message}`));
 
     function getConfig(name) {
@@ -53,6 +60,8 @@ module.exports = {
       const meta = [format.getState(issue.state), '•', issue.assignee ? `Assigned to @${issue.assignee.username}` : 'Not assigned'].join(' ');
 
       console.log([text, meta].join('\n'));
+
+      return issue;
     }
   }
 };
