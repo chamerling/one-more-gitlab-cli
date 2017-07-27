@@ -1,4 +1,4 @@
-const Table = require('cli-table');
+const Table = require('cli-table2');
 const {Client, getProjectConfiguration, constants, format} = require('../../lib');
 const ora = require('ora');
 
@@ -36,6 +36,10 @@ module.exports = {
       return client.getIssuesForProject({name: config.name, search});
     }
 
+    function centerText(text) {
+      return { hAlign: 'center', vAlign: 'center', content: text };
+    }
+
     function printIssues(issues = []) {
       if (!issues.length) {
         return spinner.succeed('No issues');
@@ -45,7 +49,7 @@ module.exports = {
 
       const table = new Table({head: ['Summary', 'State', 'Assigned to']});
 
-      issues.forEach(issue => table.push([format.issueAsText(issue, 80), format.getState(issue.state), issue.assignee ? `@${issue.assignee.username}` : '']));
+      issues.forEach(issue => table.push([format.issueAsText(issue, 80), centerText(format.getState(issue.state)), centerText(issue.assignee ? `@${issue.assignee.username}` : '')]));
       console.log(table.toString());
     }
   }

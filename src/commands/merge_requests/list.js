@@ -1,4 +1,4 @@
-const Table = require('cli-table');
+const Table = require('cli-table2');
 const {Client, getProjectConfiguration, constants} = require('../../lib');
 const ora = require('ora');
 
