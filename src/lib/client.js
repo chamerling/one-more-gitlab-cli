@@ -1,12 +1,13 @@
 const axios = require('axios');
 const querystring = require('querystring');
-const url = require('url')
+const url = require('url');
+const API_VERSION = 'v3';
 
 class Client {
   constructor(config) {
     this.config = config;
     this.axios = axios.create({
-      baseURL: config.api,
+      baseURL: `${config.url}/api/${API_VERSION}`,
       headers: {
         'PRIVATE-TOKEN': config.privateToken
       }

@@ -42,7 +42,7 @@ function getProjectConfiguration(name) {
       return getProjectName(name).then(name => {
         return {
           name,
-          api: config.url + '/api/v3',
+          url: config.url,
           privateToken: config.token
         };
       }); 
