@@ -88,6 +88,14 @@ class Client {
       return this.createIssue(issue);
     });
   }
+
+  getPipelines(projectId, params) {
+    return this.axios.get(`/projects/${encodeURIComponent(projectId)}/pipelines`, params).then(result => result.data);
+  }
+
+  getPipeline(projectId, pipelineId) {
+    return this.axios.get(`/projects/${encodeURIComponent(projectId)}/pipelines/${pipelineId}`).then(result => result.data);
+  }
 }
 
 module.exports = Client;
