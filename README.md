@@ -1,5 +1,7 @@
 # one-more-gitlab-cli
 
+[![Build Status](https://travis-ci.org/chamerling/one-more-gitlab-cli.svg?branch=master)](https://travis-ci.org/chamerling/one-more-gitlab-cli)
+
 One more [GitLab](https://about.gitlab.com/) CLI, because other ones do not fit my needs...
 
 [![Issues list](https://img.youtube.com/vi/nF5iwqwIlgg/maxresdefault.jpg)](https://www.youtube.com/watch?v=nF5iwqwIlgg)

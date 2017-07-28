@@ -4,8 +4,7 @@
   "description": "One more Gitlab CLI",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "./node_modules/.bin/eslint ."
+    "test": "./node_modules/.bin/eslint ."
   },
   "repository": {
     "type": "git",
