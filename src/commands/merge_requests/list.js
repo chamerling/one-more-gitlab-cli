@@ -41,10 +41,6 @@ module.exports = {
       return client.getMergeRequestsForProject({name: config.name, state});
     }
 
-    function centerText(text) {
-      return { hAlign: 'center', vAlign: 'center', content: text };
-    }
-
     function printMergeRequests(mrs = []) {
       if (!mrs.length) {
         return spinner.succeed('No merge requests');
@@ -54,7 +50,7 @@ module.exports = {
 
       const table = new Table({head: ['Summary', 'State', 'Created by']});
 
-      mrs.forEach(mr => table.push([format.mrAsText(mr, 80), centerText(format.getState(mr.state)), centerText(mr.author.username ? `@${mr.author.username}` : '')]));
+      mrs.forEach(mr => table.push([format.mrAsText(mr, 80), format.centerText(format.getState(mr.state)), format.centerText(mr.author.username ? `@${mr.author.username}` : '')]));
       console.log(table.toString());
     }
   }

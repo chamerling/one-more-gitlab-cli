@@ -4,6 +4,7 @@ const moment = require('moment');
 const emoji = require('node-emoji');
 
 module.exports = {
+  centerText,
   getState,
   issueAsText,
   mrAsText
@@ -28,4 +29,8 @@ function mrAsText(mr, truncateLength) {
 function getState(state) {
   state = state.replace(/\b\w/g, l => l.toUpperCase());
   return (state === 'Opened' ? chalk.bgGreen(state) : chalk.bgRed(state));
+}
+
+function centerText(text) {
+  return { hAlign: 'center', vAlign: 'center', content: text };
 }
