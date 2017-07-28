@@ -1,3 +1,1 @@
-module.exports = grunt => {
-  grunt.loadNpmTasks('grunt-release');
-};
+module.exports = grunt => grunt.loadNpmTasks('grunt-release');

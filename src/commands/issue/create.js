@@ -1,5 +1,6 @@
-const {Client, getProjectConfiguration, constants} = require('../../lib');
+const { Client, getProjectConfiguration, constants } = require('../../lib');
 const ora = require('ora');
+const opn = require('opn');
 
 module.exports = {
   command: 'create',
@@ -28,13 +29,13 @@ module.exports = {
     const { name, title, description, open } = argv;
     const spinner = ora(`Creating issue ${title}`).start();
 
-    getConfig(name)
+    getConfig()
       .then(createIssue)
       .then(printIssue)
-      .then(issue => open ? opn(issue.web_url, { wait: false }) : '')
+      .then(issue => (open ? opn(issue.web_url, { wait: false }) : ''))
       .catch(err => spinner.fail(`Failed to create issue: ${err.message}`));
 
-     function getConfig(name) {
+    function getConfig() {
       spinner.text = 'Getting project config...';
       return getProjectConfiguration(name).then(config => {
         if (!config) {
@@ -48,8 +49,8 @@ module.exports = {
     function createIssue(config) {
       spinner.text = `Creating issue in ${config.name} project`;
       const client = new Client(config);
-      
-      return client.createIssueInProject(config.name, {title, description});
+
+      return client.createIssueInProject(config.name, { title, description });
     }
 
     function printIssue(issue) {

@@ -11,7 +11,7 @@ function getGitConfig() {
         return reject(err);
       }
 
-      resolve(config);
+      return resolve(config);
     });
   });
 }

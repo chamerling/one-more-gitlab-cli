@@ -1,6 +1,5 @@
-const {Client, getProjectConfiguration, constants, format} = require('../../lib');
+const { Client, getProjectConfiguration, constants, format } = require('../../lib');
 const ora = require('ora');
-const chalk = require('chalk');
 const opn = require('opn');
 
 module.exports = {
@@ -22,16 +21,16 @@ module.exports = {
     name: constants.options.name
   },
   handler: argv => {
-    const {id, name, open} = argv;
-    const spinner = ora(`Looking for MR...`).start();
+    const { id, name, open } = argv;
+    const spinner = ora('Looking for MR...').start();
 
-    getConfig(name)
+    getConfig()
       .then(getMR)
       .then(printMR)
-      .then(issue => open ? opn(issue.web_url, { wait: false }) : '')
+      .then(issue => (open ? opn(issue.web_url, { wait: false }) : ''))
       .catch(err => spinner.fail(`Failed to get MR: ${err.message}`));
 
-    function getConfig(name) {
+    function getConfig() {
       spinner.text = 'Getting project config...';
       return getProjectConfiguration(name).then(config => {
         if (!config) {
@@ -45,8 +44,8 @@ module.exports = {
     function getMR(config) {
       spinner.text = `Getting MR #${id} for ${config.name} project`;
       const client = new Client(config);
-      
-      return client.getMergeRequestForProject({id, name: config.name});
+
+      return client.getMergeRequestForProject({ id, name: config.name });
     }
 
     function printMR(mr) {

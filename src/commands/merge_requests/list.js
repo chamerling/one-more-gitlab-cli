@@ -1,5 +1,5 @@
 const Table = require('cli-table2');
-const {Client, getProjectConfiguration, constants, format} = require('../../lib');
+const { Client, getProjectConfiguration, constants, format } = require('../../lib');
 const ora = require('ora');
 
 module.exports = {
@@ -15,15 +15,15 @@ module.exports = {
     name: constants.options.name
   },
   handler: argv => {
-    const {state, name} = argv;
-    const spinner = ora(`Looking at merge requests...`).start();
+    const { state, name } = argv;
+    const spinner = ora('Looking at merge requests...').start();
 
-    getConfig(name)
+    getConfig()
       .then(searchMergeRequests)
       .then(printMergeRequests)
       .catch(err => spinner.fail(`Failed to get merge requests: ${err.message}`));
 
-    function getConfig(name) {
+    function getConfig() {
       spinner.text = 'Getting project config...';
       return getProjectConfiguration(name).then(config => {
         if (!config) {
@@ -37,8 +37,8 @@ module.exports = {
     function searchMergeRequests(config) {
       spinner.text = `Searching merge requests for ${config.name} project`;
       const client = new Client(config);
-      
-      return client.getMergeRequestsForProject({name: config.name, state});
+
+      return client.getMergeRequestsForProject({ name: config.name, state });
     }
 
     function printMergeRequests(mrs = []) {
@@ -48,10 +48,16 @@ module.exports = {
 
       spinner.succeed(`Displaying ${mrs.length} merge requests`);
 
-      const table = new Table({head: ['Summary', 'State', 'Created by']});
+      const table = new Table({ head: ['Summary', 'State', 'Created by'] });
 
-      mrs.forEach(mr => table.push([format.mrAsText(mr, 80), format.centerText(format.getState(mr.state)), format.centerText(mr.author.username ? `@${mr.author.username}` : '')]));
+      mrs.forEach(mr => table.push([
+        format.mrAsText(mr, 80),
+        format.centerText(format.getState(mr.state)),
+        format.centerText(mr.author.username ? `@${mr.author.username}` : '')
+      ]));
       console.log(table.toString());
+
+      return table;
     }
   }
 };

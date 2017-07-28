@@ -1,6 +1,5 @@
-const {Client, getProjectConfiguration, constants, format} = require('../../lib');
+const { Client, getProjectConfiguration, constants, format } = require('../../lib');
 const ora = require('ora');
-const chalk = require('chalk');
 const opn = require('opn');
 
 module.exports = {
@@ -22,16 +21,16 @@ module.exports = {
     name: constants.options.name
   },
   handler: argv => {
-    const {id, name, open} = argv;
-    const spinner = ora(`Looking at issue...`).start();
+    const { id, name, open } = argv;
+    const spinner = ora('Looking at issue...').start();
 
-    getConfig(name)
+    getConfig()
       .then(getIssue)
       .then(printIssue)
-      .then(issue => open ? opn(issue.web_url, { wait: false }) : '')
+      .then(issue => (open ? opn(issue.web_url, { wait: false }) : ''))
       .catch(err => spinner.fail(`Failed to get issue: ${err.message}`));
 
-    function getConfig(name) {
+    function getConfig() {
       spinner.text = 'Getting project config...';
       return getProjectConfiguration(name).then(config => {
         if (!config) {
@@ -45,8 +44,8 @@ module.exports = {
     function getIssue(config) {
       spinner.text = `Getting issue #${id} for ${config.name} project`;
       const client = new Client(config);
-      
-      return client.getIssueForProject({id, name: config.name});
+
+      return client.getIssueForProject({ id, name: config.name });
     }
 
     function printIssue(issue) {

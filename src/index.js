@@ -1,6 +1,7 @@
 const yargs = require('yargs');
 require('./update-notifier')();
 
+/* eslint no-unused-expressions: off */
 yargs
   .strict()
   .usage('Usage: $0 <command> [options]')
